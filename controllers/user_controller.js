@@ -10,8 +10,18 @@ module.exports.signUp=function(req,res){
         title:"Codeial | SignUp"
     })
 }
-module.exports.signUp=function(req,res){
+module.exports.signIn=function(req,res){
     return res.render('user_sign_in',{
         title:"Codeial | SignIn"
     })
+}
+
+module.exports.create=function(req,res)
+{
+    //later
+}
+
+module.exports.createSession=function(req,res)
+{
+    //later
 }
