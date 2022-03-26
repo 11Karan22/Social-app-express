@@ -4,3 +4,4 @@ module.exports.home=function(req,res)
         title:"Home"
     });
 }
+//module.exports.actionName=function();//action name likhna zaroori hai taaki access krne ke time kaam aaye!
