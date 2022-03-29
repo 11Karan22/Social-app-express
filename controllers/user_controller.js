@@ -23,9 +23,9 @@ module.exports.signIn=function(req,res){
 
 module.exports.create=function(req,res)
 {
-    if(req.body.password!=req.body.confirmed_password)
+    if(req.body.password!=req.body.confirm_password)
     {
-        return res.redirect('back');
+        return res.redirect('/user/sign-up');
     }
      User.findOne({email:req.body.email},function(err,user)//inbuilt function
      {
