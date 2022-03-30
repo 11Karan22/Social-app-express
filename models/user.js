@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-//creating he schema
+//creating the schema
 const userSchema=new mongoose.Schema({
     name:{
         type:String,
@@ -19,5 +19,6 @@ const userSchema=new mongoose.Schema({
 },{
     timestamps:true
 });
-const User= mongoose.model('User',userSchema);
+const User= mongoose.model('User',userSchema);//iss ki badolat hum baakiyo ko access kr skte hai!
+
 module.exports=User;
