@@ -5,11 +5,23 @@ const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local');
-
+const sassMiddleware=require('node-sass-middleware');
 const app=express();
 
 const port=8000;
 const db=require('./config/mongoose');//app ko batana bhi pdega nah ki hmne db ko access kra hai!
+
+//setting up the scss but it should be before the our server gets started as this sjould be compiled before the server gets started
+app.use(sassMiddleware(
+    {
+        src:'./assets/scss',
+        dest:'./assets/css',
+        debug:true,
+        outputStyle:'extended',
+        prefix:'/css'
+    }
+))
+
 app.use(express.static('./assets'));//css js images aisi files
 app.use(expressLayouts);
 
