@@ -1,4 +1,4 @@
-const express=require('express');
+const express=require('express');//same instance share hota hai?
 const router=express.Router();
 const homeController=require('../controllers/home_controller');
 

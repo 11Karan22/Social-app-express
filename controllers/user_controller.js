@@ -23,10 +23,12 @@ module.exports.signIn=function(req,res){
 
 module.exports.create=function(req,res)
 {
+    //manual authentication!
     if(req.body.password!=req.body.confirm_password)
     {
         return res.redirect('/user/sign-up');
     }
+    //now mogodb se data compare kiya jah rha hai!0
      User.findOne({email:req.body.email},function(err,user)//inbuilt function
      {
          if(err)
