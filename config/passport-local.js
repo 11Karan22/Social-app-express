@@ -24,12 +24,12 @@ passport.use(new localStrategy({//passport.use se batana hai passport ko ki hum 
 } 
 
 ))
-//this is in he browser while setting up the connection with the database!
+
 passport.serializeUser(function(user,done)
 {
     done(null,user.id);
 })
-
+//abhi deserialize walla part use krna hai!
 passport.deserializeUser(function(id,done)
 {
   User.findById(id,function(err,user)
@@ -43,5 +43,28 @@ passport.deserializeUser(function(id,done)
     return done(null,user);
   })
 })
+//check if user is authenticated ? but why no idea!
+passport.checkAuthentication=function(req,res,next)
+{
+
+  if(req.isAuthenticated())
+  {
+  return next();
+
+  }
+  return res.redirect('/user/sign-in');
+}
+    //req.user contains the current signed in user from the session cookie and we 
+    //are just passing this to locals for the views!
+passport.setAuthenticatedUser=function(req,res,next)
+{
+  if(req.isAuthenticated())
+  {
+    res.locals.user=req.user;
+  }
+  return next();
+}
+   
+  
 
 module.exports=passport;

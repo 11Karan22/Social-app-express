@@ -10,12 +10,21 @@ module.exports.profile=function(req,res)
 //getting sign-up data
 module.exports.signUp=function(req,res)
 {
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/user/profile');
+    }
     return res.render('user_sign_up',
     {
         title:"codeial | sign-up"
     })
 }
 module.exports.signIn=function(req,res){
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/user/profile');
+    }
+
     return res.render('user_sign_in',{
         title:"Codeial | SignIn"
     })
@@ -56,5 +65,15 @@ module.exports.create=function(req,res)
 //users toh ek step pehle hi 
 module.exports.createSession=function(req,res)
 {
-    //later
+    
+  res.redirect('/user/profile');
+       
+}
+//for sign-out
+
+module.exports.destroySession=function(req,res)
+{
+    req.logout();
+  res.redirect('/');
+       
 }

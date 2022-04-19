@@ -1,2 +1,15 @@
 <!-- header footer ko include krna hota hai agar layouts ka use kr rahe hain!-->
     <h1>Codeial <%= title %></h1>
+
+    <section id="feed-posts">
+        <h4>
+            Posts
+        </h4>
+        <form action="/posts/createPost" id="new-post-form" method="POST">
+            <textarea name="content" cols="30" rows="3" placeholder="type here..."> 
+
+            </textarea>
+              <input type="submit" value="POST">
+        </form>
+
+    </section>
