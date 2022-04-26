@@ -8,4 +8,6 @@ router.get('/',homeController.home);
 
 router.use('/user',require('./user'));//yahan pe ab middleware kaam aa rahe hai! isse check krna hoga!
 router.use('/posts',require('./posts'));
+router.use('/comments',require('./comments'));
+
 module.exports=router;

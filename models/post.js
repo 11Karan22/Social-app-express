@@ -9,8 +9,14 @@ const postSchema=new mongoose.Schema(
         user://isse hame refer krna hai! //very very imp
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:'User'
-        }
+            ref:'User'//joh hmne pehle user banaya tha usse refer kar raha hai yeh!
+        },
+        comments:[//hmme isse as an array store krna pdega taaki jaldi se access kr sake  
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'Comment'  
+            }
+        ]
     },{
         timestamps:true
     }
