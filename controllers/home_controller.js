@@ -12,7 +12,17 @@ module.exports.home=async function(req,res)
     // })
 
    //populate the user for each post
-    Post.find({}).populate('user').exec(function(err,postsi)
+    Post.find({})
+    .populate('user')
+    .populate(
+        {
+            path:'comments',//further nesting se hmme uss user comment ka user miljayega
+            populate:{
+                path:'user'
+            }
+        }
+    )
+    .exec(function(err,postsi)
    {
     
      return res.render('home',{
@@ -21,14 +31,6 @@ module.exports.home=async function(req,res)
     });
      
    })
-// Post.find({}).populate(
-//     {
-//         path:'Comments',
-//         {
-            
-//         }
-//     }
-// )
 
 }
 //module.exports.actionName=function();//action name likhna zaroori hai taaki access krne ke time kaam aaye!
