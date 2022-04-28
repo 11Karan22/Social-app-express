@@ -1,10 +1,14 @@
 const User=require('../models/user');//we have defined the schema over there
 module.exports.profile=function(req,res)
 {
-
+User.findById(req.params.id,function(err,user)
+{
     return res.render('user_profile',{
-        title:"Profile"
+        title:"Profile",
+        profile_user:user
     });
+})
+   
 }
 
 //getting sign-up data

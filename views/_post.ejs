@@ -1,0 +1,27 @@
+<li>
+                    <!--making check further ki user jisne voh post banayi hai joh logged in hai vpoh same hai ki nhi!-->
+                    <% if(locals.user && locals.user.id == post.user.id){ %>
+                    <small>
+                        <a href="/posts/destroy/<%=post.id%>">deleteX</a>
+                    </small>
+                <%} %>
+                    <p><%= post.content %></p>
+                    <p><%= post.user.name %></p>
+                    <p><%= post.user.email %></p>                
+                <!-- making the form for comments in the post only-->
+                   <div class="post-comments">
+                    <% if(locals.user) {%>
+                        
+                        <form action="/comments/create" method="POST">
+                         <input  type="text" name="content" placeholder="type here to add post" required>
+                         <input  type="hidden" name="post" value="<%= post._id %>">
+                         <input type="submit" value="add comment">
+                        </form>
+                        <% }%>
+                        <div class="post-comments-list">
+                           <ul id="post-comments-<%=post._id%>">
+                              <%- include('_comment') -%>
+                           </ul>
+                        </div>
+                   </div>
+                </li>

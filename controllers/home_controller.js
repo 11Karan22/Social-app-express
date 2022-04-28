@@ -1,5 +1,5 @@
 const Post = require("../models/post");
-
+const User=require('../models/user');
 module.exports.home=async function(req,res)
 {
     // Post.find({},function(err,posts)// it was only showing the post
@@ -24,11 +24,17 @@ module.exports.home=async function(req,res)
     )
     .exec(function(err,postsi)
    {
-    
-     return res.render('home',{
+    User.find({},function(err,users)
+    { 
+        return res.render('home',{
         title:"Home KARAN",
-        posts:postsi
+        posts:postsi,
+        all_users:users
     });
+        
+    });
+    
+    
      
    })
 

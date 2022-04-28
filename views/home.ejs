@@ -15,51 +15,23 @@
         <div id="post-list-container">
          <ul>
              <% for(post of posts){ %>
-                <li>
-                    <!--making check further ki user jisne voh post banayi hai joh logged in hai vpoh same hai ki nhi!-->
-                    <% if(locals.user && locals.user.id == post.user.id){ %>
-                    <small>
-                        <a href="/posts/destroy/<%=post.id%>">deleteX</a>
-                    </small>
-                <%} %>
-                    <p><%= post.content %></p>
-                    <p><%= post.user.name %></p>
-                    <p><%= post.user.email %></p>                
-                <!-- making the form for comments in the post only-->
-                   <div class="post-comments">
-                    <% if(locals.user) {%>
-                        
-                        <form action="/comments/create" method="POST">
-                         <input  type="text" name="content" placeholder="type here to add post" required>
-                         <input  type="hidden" name="post" value="<%= post._id %>">
-                         <input type="submit" value="add comment">
-                        </form>
-                        <% }%>
-                        <div class="post-comments-list">
-                           <ul id="post-comments-<%=post._id%>">
-                               <% for (comment of post.comments){%>
-                                <% if(locals.user && locals.user.id == comment.user.id){ %>
-                                    <small>
-                                        <a href="/comments/destroy/<%=comment.id%>">deleteX</a>
-                                    </small>
-                                <%} %>
-                                <p>
-                                    <%=comment.content%>
-                                    <br>
-                                    <small>
-                                        <%= comment.user.name %>
-                                    </small>
-                                </p>
-                          
-
-
-                                <%}%>
-                           </ul>
-                        </div>
-                   </div>
-                </li>
+                <!--using partials to divide our large code into smaller one! -->
+                <%- include('_post') -%>
                 <% }%>
          </ul>
         </div>
             <% }%>
+    </section>
+    <section id="user-friends">
+    <h3>Friends</h3>
+    <% for(u of all_users){%>
+         <p>
+             <!--ab iske baad profile pages ke routes change honge according to id show honge!-->
+             <a href="/user/profile/<%=u.id%>"> 
+                <%=u.name %>
+             </a>
+         </p>
+
+        <% } %>
+
     </section>
