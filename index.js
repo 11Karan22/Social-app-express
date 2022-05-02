@@ -8,6 +8,9 @@ const passportLocal=require('./config/passport-local');
 const sassMiddleware=require('node-sass-middleware');
 const app=express();
 
+//flash message
+const flash=require('connect-flash');
+const customWare=require('./config/middleware');
 
 const port=8000;
 const db=require('./config/mongoose');//app ko batana bhi pdega nah ki hmne db ko access kra hai!
@@ -60,7 +63,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
-
+app.use(flash());
+app.use(customWare.setFlash);
 app.use('/',require('./routes'));//yeh app ko batane ke liye joh bhi routes aayenge voh aage isko refer krein!
 
 app.listen(port,function(err)

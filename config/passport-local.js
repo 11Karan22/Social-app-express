@@ -1,21 +1,23 @@
+const req = require('express/lib/request');
 const passport=require('passport');
 const localStrategy=require('passport-local').Strategy;
 const User=require('../models/user');
 
 passport.use(new localStrategy({//passport.use se batana hai passport ko ki hum use kr rahein hai is stratergy ko
- usernameField:'email'
-},function(email,password,done)//inbuit function hai done
+ usernameField:'email',
+ passReqToCallback:true//imp
+},function(req,email,password,done)//inbuit function hai done
 {
     User.findOne({email:email},function(err,user)
     {
     if(err)
     {
-        console.log('errrrrrorr');
+        req.flash('error',err);
         return done(err);
     }
     if(!user || (user.password!=password))
     {
-    console.log('Invalid username');
+    req.flash('error','Invalid Username/passWord');
     return done(null,false);
     }
     return done(null,user);

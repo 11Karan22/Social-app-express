@@ -1,3 +1,5 @@
+const flash = require('connect-flash/lib/flash');
+const { findByIdAndUpdate } = require('../models/user');
 const User=require('../models/user');//we have defined the schema over there
 module.exports.profile=function(req,res)
 {
@@ -69,15 +71,30 @@ module.exports.create=function(req,res)
 //users toh ek step pehle hi 
 module.exports.createSession=function(req,res)
 {
-    
-  res.redirect('/user/profile');
+    req.flash('success','logged in succesfully');
+  res.redirect('/');
        
 }
 //for sign-out
 
 module.exports.destroySession=function(req,res)
 {
+    
+    req.flash('success','logged out !');//now this is on the request but we need to send to the response to display it!
     req.logout();
-  res.redirect('/');
+    res.redirect('/');
        
+}
+module.exports.update=function(req,res)
+{
+    if(req.user.id==req.params.id)
+    {
+        User.findByIdAndUpdate(req.params.id,req.body,function(err,user)
+        {
+          return res.redirect('back');
+        });
+    }
+    else{
+        return res.status(401).send("Unauthorized");
+    }
 }

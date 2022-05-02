@@ -2,6 +2,19 @@
 <h1>Codeial welcome ji !!</h1>
 
 
-<!-- users data-->
-<p><%= profile_user.name%></p>
-<p><%= profile_user.email%></p>
+
+<% if(user.id==profile_user.id) {%>
+    <!--if user mathches then show the form-->
+    <form action="/user/update/<%= profile_user.id%>" method="POST">
+        <input type="text" name="name"  placeholder="Your Name"  required>
+        <input type="email" name="email"  placeholder="Your email"  required>
+        <input type="submit" value="update">
+        
+
+    </form>
+    <% } else { %>
+
+        <p><%= profile_user.name%></p>
+        <p><%= profile_user.email%></p>
+        <% } %>
+

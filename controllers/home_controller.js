@@ -2,17 +2,11 @@ const Post = require("../models/post");
 const User=require('../models/user');
 module.exports.home=async function(req,res)
 {
-    // Post.find({},function(err,posts)// it was only showing the post
-    // {
-
-    //     return res.render('home',{
-    //         title:"Home KARAN",
-    //         posts:posts
-    //     });
-    // })
-
+    //now wriing our code more cleanly
+    try
+    {
    //populate the user for each post
-    Post.find({})
+    let postsi=await Post.find({})
     .populate('user')
     .populate(
         {
@@ -22,21 +16,22 @@ module.exports.home=async function(req,res)
             }
         }
     )
-    .exec(function(err,postsi)
-   {
-    User.find({},function(err,users)
-    { 
+    
+   let users= await User.find({});
+    
         return res.render('home',{
         title:"Home KARAN",
         posts:postsi,
         all_users:users
-    });
-        
-    });
+        });
     
-    
+    } catch(err)
+{
+    console.log('Error ',err);
+    return;
+}
      
-   })
+
 
 }
 //module.exports.actionName=function();//action name likhna zaroori hai taaki access krne ke time kaam aaye!
