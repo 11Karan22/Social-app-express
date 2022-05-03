@@ -3,27 +3,33 @@ const Comment=require('../models/comment');
 module.exports.createPost=async function(req,res)
 {
     try{ 
-  await Post.create(
+  let post=await Post.create(
     {
         
         content:req.body.content,
         user:req.user._id
-    },function(err,post)
+    });
+    if(req.xhr)
     {
-      if(err)
-      {
-          console.log('erorr in creating the post');
-          return;
-      }
-      //console.log(req);
-      return res.redirect('back');
+        return res.status(200).json(
+            {
+                data:{
+                    post:post
+                },
+                message:"post created"
+            }
+        )
     }
-)
+      
+      req.flash('success','Post published!');
+      return res.redirect('back');
+    
+
     }
     catch(err)
     {
-console.log("err",err);
-return;
+req.flash('error',err);
+return res.redirect('back');
     }
 }
 module.exports.destroy=async function(req,res)
@@ -35,11 +41,12 @@ module.exports.destroy=async function(req,res)
         {
             post.remove();
             await Comment.deleteMany({post:req.params.id});
+            req.flash('success',"post and associated comments deleted");
                 return res.redirect('back');
             
         }
         else{
-            
+            req.flash('error',"you can't delete this post")
             return res.redirect('back');
         }
     }

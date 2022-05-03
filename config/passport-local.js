@@ -5,7 +5,7 @@ const User=require('../models/user');
 
 passport.use(new localStrategy({//passport.use se batana hai passport ko ki hum use kr rahein hai is stratergy ko
  usernameField:'email',
- passReqToCallback:true//imp
+ passReqToCallback:true    //imp
 },function(req,email,password,done)//inbuit function hai done
 {
     User.findOne({email:email},function(err,user)
