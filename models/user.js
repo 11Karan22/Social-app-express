@@ -1,5 +1,7 @@
 const mongoose=require('mongoose');
-
+const multer =require('multer');
+const path=require('path');
+const AVATAR_PATH=path.join('/uploads/users/avatars');
 //creating the schema
 const userSchema=new mongoose.Schema({
     name:{
@@ -14,12 +16,26 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    avatar:{
+        type:String,
+        required:true
     }
    
 },{
     timestamps:true
 });
 
+let storage=multer.diskStorage({
+    destination:function(req,file,cb)
+    {
+        cb(null,path.join(__dirname,'..',AVATAR_PATH));
+    },
+    filename:function(req,file,cb)
+    {
+        cb(null,file.fieldname+'-'+Date.now());//taaki date now islite use kiya taki koi clashes nah ho
+    }
+})
 const User= mongoose.model('User',userSchema);//iss ki badolat hum baakiyo ko access kr skte hai!
 
 module.exports=User;

@@ -7,6 +7,7 @@ module.exports.home=async function(req,res)
     {
    //populate the user for each post
     let postsi=await Post.find({})
+    .sort('-createdAt')
     .populate('user')
     .populate(
         {

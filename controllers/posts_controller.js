@@ -18,7 +18,7 @@ module.exports.createPost=async function(req,res)
                 },
                 message:"post created"
             }
-        )
+        );
     }
       
       req.flash('success','Post published!');
@@ -41,6 +41,17 @@ module.exports.destroy=async function(req,res)
         {
             post.remove();
             await Comment.deleteMany({post:req.params.id});
+            if(req.xhr)
+            {
+                return res.status(200).json(
+                    {
+                        data:{
+                            post_id:req.params.id,
+                        },
+                        message:"post deleted successfully"
+                    }
+                );
+            }
             req.flash('success',"post and associated comments deleted");
                 return res.redirect('back');
             

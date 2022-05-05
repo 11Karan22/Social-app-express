@@ -1,5 +1,5 @@
-<li id="post-<%=post.id%>">
-                    <!--making check further ki user jisne voh post banayi hai joh logged in hai vpoh same hai ki nhi!-->
+<li id="post-<%= post.id%>">
+        
                     <% if(locals.user && locals.user.id == post.user.id){ %>
                     <small>
                         <a class="delete-post-button" href="/posts/destroy/<%=post.id%>">deleteX</a>
@@ -8,7 +8,7 @@
                     <p><%= post.content %></p>
                     <p><%= post.user.name %></p>
                     <p><%= post.user.email %></p>                
-                <!-- making the form for comments in the post only-->
+               
                    <div class="post-comments">
                     <% if(locals.user) {%>
                         
