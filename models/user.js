@@ -19,7 +19,7 @@ const userSchema=new mongoose.Schema({
     },
     avatar:{
         type:String,
-        required:true
+        
     }
    
 },{
@@ -36,6 +36,9 @@ let storage=multer.diskStorage({
         cb(null,file.fieldname+'-'+Date.now());//taaki date now islite use kiya taki koi clashes nah ho
     }
 })
+//static methods
+userSchema.statics.uploadedAvatar=multer({storage:storage}).single('avatar');
+userSchema.statics.avatarPath=AVATAR_PATH;
 const User= mongoose.model('User',userSchema);//iss ki badolat hum baakiyo ko access kr skte hai!
 
 module.exports=User;
