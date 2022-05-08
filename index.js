@@ -34,6 +34,9 @@ app.use(expressLayouts);
 app.use(express.urlencoded());
 app.use(cookieParser());
 
+//to make upload path available to the browser
+app.use('/uploads',express.static(__dirname+'/uploads'));
+
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);//yeh batane ke liye joh bhi scripts dynamically control ho rahe hai usme joh script tag yah css joh use hai overall header mai shift ho jaye!
 
