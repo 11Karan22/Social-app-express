@@ -17,7 +17,8 @@ const port=8000;
 const db=require('./config/mongoose');//app ko batana bhi pdega nah ki hmne db ko access kra hai!
 
 const MongoStore=require('connect-mongo')(session);
-//setting up the scss but it should be before the our server gets started as this sjould be compiled before the server gets started
+
+//setting up the scss but it should be before the our serve0r gets started as this sjould be compiled before the server gets started
 app.use(sassMiddleware(
     {
         src:'./assets/scss',
