@@ -5,7 +5,8 @@ const cookieParser=require('cookie-parser');
 const session=require('express-session');//this will exncrypt the key and store it in the cookie
 const passport=require('passport');
 const passportLocal=require('./config/passport-local');
-const passportJWT=require('passport-jwt');
+const passportJWT=require('./config/passport-jwt-stratergy');//oh pehle yahan glti aa rahi thi!!!!!
+
 const sassMiddleware=require('node-sass-middleware');
 const app=express();
 
