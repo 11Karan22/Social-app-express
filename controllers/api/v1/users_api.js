@@ -9,14 +9,14 @@ module.exports.createSession=async function(req,res)
     if(!user ||(user.password!=req.body.password))
     {
        return res.json(422,{
-       message:"Invalid username or pass"
+       message:"Invalid username or password"
        });
     }
     else{
    return res.json(200,{
      message:'sign in successfull,here is your token,please keep it safe',
      data:{
-         token:jwt.sign(user.toJSON(),'codeial',{expiresIn:'100000'})//isse ek key generate hogi joh ki encrupted hogi!
+         token:jwt.sign(user.toJSON(),'codeial',{expiresIn:'10000000'})//isse ek key generate hogi joh ki encrupted hogi!
      }
    })
     }
