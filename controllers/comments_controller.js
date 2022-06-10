@@ -1,26 +1,46 @@
 const Comment=require('../models/comment');
 const Post = require('../models/post');
-
-module.exports.create=function(req,res)
+const commentsMailer=require('../mailers/comments_mailer');
+module.exports.create=async function(req,res)
 {
-    Post.findById(req.body.post,function(err,post)
-    {
-        if(post)
-        {
-            Comment.create(
-                {
-                    content:req.body.content,
-                    post:req.body.post,
-                    user:req.user._id
-                },function(err,comment)
-                {
-                    post.comments.push(comment);
-                    post.save();//we need to  do this everytime so that the changes are saved
-                  res.redirect('/');
-                }
-            )
+  
+    try{
+
+        let post = await Post.findById(req.body.post);
+
+        if (post){
+            let comment = await Comment.create({
+                content: req.body.content,
+                post: req.body.post,
+                user: req.user._id
+            });
+
+            post.comments.push(comment);
+            post.save();
+            
+            comment = await comment.populate('user');
+            commentsMailer.newComment(comment);
+            if (req.xhr){
+                
+    
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Post created!"
+                });
+            }
+
+
+            req.flash('success', 'Comment published!');
+
+            res.redirect('/');
         }
-    })
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
 }
 module.exports.destroy=function(req,res)
 {

@@ -9,8 +9,10 @@ module.exports.createPost=async function(req,res)
         content:req.body.content,
         user:req.user._id
     });
+   
     if(req.xhr)
     {
+        await post.populate('user');
         return res.status(200).json(
             {
                 data:{
