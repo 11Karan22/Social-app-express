@@ -4,14 +4,14 @@ const nodeMailer=require('../config/nodemailer');
 // newComment=function()
 // module.exports=newComment
 exports.newComment=(comment)=>{
-
-    console.log('inside newComment mailer');
-    console.log(comment);
+let htmlString=nodeMailer.renderTemplate({comment:comment},'/comments/new_comment.ejs');
+    
+    // console.log(comment);
     nodeMailer.transporter.sendMail({
         from:'karan0057.cse19@chitkara.edu.in',
         to:comment.user.email,
         subject:"New Comment published!",
-        html:'<h1>Yup, your comment is now published</h1>'
+        html:htmlString
     },
     (err,info)=>
     {
